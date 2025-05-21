@@ -4,7 +4,6 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import joblib
 import pandas as pd
-import sys
 import os
 
 app = FastAPI()
@@ -64,6 +63,9 @@ async def predict(data: LoanInput):
             "f1": f"{metrics['f1'] * 100:.2f}%"
         }
     })
+
+# Use dynamic port for Render or default to 10000 locally
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app:app", host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 10000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port)
