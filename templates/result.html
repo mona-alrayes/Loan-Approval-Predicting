@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prediction Result</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <h2>Loan Prediction Result</h2>
+    <div class="alert" id="predictionResult"></div>
+    <h4>Model Performance</h4>
+    <ul class="list-group">
+      <li class="list-group-item">Accuracy: <span id="acc"></span></li>
+      <li class="list-group-item">Precision: <span id="prec"></span></li>
+      <li class="list-group-item">Recall: <span id="rec"></span></li>
+      <li class="list-group-item">F1 Score: <span id="f1"></span></li>
+    </ul>
+  </div>
+
+  <script>
+    const result = JSON.parse(localStorage.getItem('result'));
+    document.getElementById('predictionResult').innerText = result.prediction === 1 ? "Approved ✅" : "Rejected ❌";
+    document.getElementById('predictionResult').className = result.prediction === 1 ? "alert alert-success" : "alert alert-danger";
+    document.getElementById('acc').innerText = result.metrics.accuracy;
+    document.getElementById('prec').innerText = result.metrics.precision;
+    document.getElementById('rec').innerText = result.metrics.recall;
+    document.getElementById('f1').innerText = result.metrics.f1;
+  </script>
+</body>
+</html>
